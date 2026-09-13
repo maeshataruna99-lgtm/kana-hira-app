@@ -18,10 +18,17 @@ const currentTitle = computed(() => {
   const found = items.find((item) => item.to === route.path)
   return found?.label ?? 'Settings'
 })
+
+const kanaFontFamily = computed(() => ({
+  'noto-sans': "'Noto Sans JP', 'Meiryo', sans-serif",
+  meiryo: "Meiryo, 'Noto Sans JP', sans-serif",
+  hiragino: "'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', sans-serif",
+  'noto-serif': "'Noto Serif JP', 'Yu Mincho', serif",
+}[settings.value.kanaFont]))
 </script>
 
 <template>
-  <div class="app-shell" :class="{ 'app-shell--reduced-motion': !settings.animations }">
+  <div class="app-shell" :class="{ 'app-shell--reduced-motion': !settings.animations }" :style="{ '--kana-font': kanaFontFamily }">
     <aside class="desktop-nav" aria-label="Primary navigation">
       <RouterLink class="brand" to="/">🌸 Kana Companion</RouterLink>
       <nav>

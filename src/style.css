@@ -35,7 +35,7 @@ h2 { margin: 0; font-size: 15px; color: #2f5c82; }
 .stat-card span { color: #7c93a3; font-size: 11px; font-weight: 800; }
 .continue-card { min-height: 178px; padding: 15px; border-radius: 20px; display: flex; flex-direction: column; gap: 9px; transition: transform .2s ease, box-shadow .2s ease; }
 .continue-card:active { transform: scale(.98); }
-.continue-card__kana { font-family: 'Zen Maru Gothic', sans-serif; font-size: 39px; line-height: 1; color: #2f5c82; }
+.continue-card__kana { font-family: var(--kana-font, 'Noto Sans JP', sans-serif); font-size: 39px; line-height: 1; color: #2f5c82; }
 .continue-card strong { font-size: 13px; }
 .continue-card__percentage { align-self: flex-end; color: #5b9bd5; font-size: 12px; font-weight: 800; }
 
@@ -69,7 +69,7 @@ h2 { margin: 0; font-size: 15px; color: #2f5c82; }
 .kana-group { display: flex; flex-direction: column; gap: 8px; }
 .kana-group h2 { font-size: 12px; color: #7c93a3; letter-spacing: .05em; }
 .kana-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; }
-.kana-tile { aspect-ratio: 1; position: relative; display: grid; place-items: center; border: 1px solid #e8f1f7; border-radius: 15px; background: #fff; box-shadow: 0 6px 16px -10px rgba(47,92,130,.34); color: #1d3a4a; font-family: 'Zen Maru Gothic', sans-serif; font-size: 20px; }
+.kana-tile { aspect-ratio: 1; position: relative; display: grid; place-items: center; border: 1px solid #e8f1f7; border-radius: 15px; background: #fff; box-shadow: 0 6px 16px -10px rgba(47,92,130,.34); color: #1d3a4a; font-family: var(--kana-font, 'Noto Sans JP', sans-serif); font-size: 20px; }
 .kana-tile:active { background: #f3f9fd; transform: scale(.97); }
 .kana-tile__dot { position: absolute; top: 6px; right: 6px; width: 6px; height: 6px; border-radius: 50%; background: #c9d7e0; }
 .kana-tile--learning { background: linear-gradient(160deg, #fff, #eaf6f2); }
@@ -82,7 +82,7 @@ h2 { margin: 0; font-size: 15px; color: #2f5c82; }
 
 .question-count { padding: 6px 9px; border-radius: 10px; background: #f3f9fd; }
 .quiz-card { min-height: 190px; display: grid; place-content: center; justify-items: center; gap: 6px; border: 1px solid #e8f1f7; border-radius: 25px; background: linear-gradient(160deg, #fff, #f3f9fd); box-shadow: 0 12px 30px -15px rgba(47,92,130,.3); }
-.quiz-card__kana { margin: 0; font-family: 'Zen Maru Gothic', sans-serif; color: #2f5c82; font-size: 82px; line-height: 1; }
+.quiz-card__kana { margin: 0; font-family: var(--kana-font, 'Noto Sans JP', sans-serif); color: #2f5c82; font-size: 82px; line-height: 1; }
 .quiz-card > p:last-child { margin: 0; color: #7c93a3; font-size: 14px; font-weight: 750; }
 .options-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
 .option-button { min-height: 62px; border: 2px solid transparent; border-radius: 15px; background: #fff; box-shadow: 0 6px 16px -10px rgba(47,92,130,.32); color: #1d3a4a; font-family: 'Baloo 2', sans-serif; font-size: 17px; font-weight: 800; }
@@ -100,7 +100,7 @@ h2 { margin: 0; font-size: 15px; color: #2f5c82; }
 .mini-stats strong { color: #2f5c82; font-family: 'Baloo 2', sans-serif; font-size: 17px; }
 .mini-stats span { color: #7c93a3; font-size: 10px; font-weight: 800; }
 .weak-kana { display: flex; flex-wrap: wrap; gap: 8px; }
-.weak-kana span { min-width: 39px; padding: 7px 10px; border-radius: 11px; background: #fbe3de; color: #b5544a; font-family: 'Zen Maru Gothic', sans-serif; font-size: 18px; text-align: center; }
+.weak-kana span { min-width: 39px; padding: 7px 10px; border-radius: 11px; background: #fbe3de; color: #b5544a; font-family: var(--kana-font, 'Noto Sans JP', sans-serif); font-size: 18px; text-align: center; }
 
 .settings-list { border-radius: 20px; padding: 3px 16px; }
 .setting-row { min-height: 70px; display: flex; align-items: center; justify-content: space-between; gap: 15px; border-bottom: 1px solid #edf4f9; }
@@ -142,11 +142,24 @@ h2 { margin: 0; font-size: 15px; color: #2f5c82; }
 .flashcard { width: min(100%, 286px); min-height: 338px; display: grid; align-content: center; justify-items: center; gap: 12px; padding: 24px; border: 1px solid #e3eff7; border-radius: 28px; background: linear-gradient(160deg, #fff, #f3f9fd); box-shadow: 0 18px 36px -18px rgba(47,92,130,.36); color: #2f5c82; transition: transform .2s ease, background .2s ease; }
 .flashcard:active { transform: scale(.98); }
 .flashcard--flipped { background: linear-gradient(160deg, #fff, #eaf6f2); }
-.flashcard__kana { font-family: 'Zen Maru Gothic', sans-serif; font-size: 100px; line-height: 1; }
+.flashcard__kana { font-family: var(--kana-font, 'Noto Sans JP', sans-serif); font-size: 100px; line-height: 1; }
 .flashcard__tap, .flashcard__detail { color: #7c93a3; font-size: 12px; font-weight: 800; }
-.flashcard__small-kana { font-family: 'Zen Maru Gothic', sans-serif; font-size: 55px; line-height: 1; }
+.flashcard__small-kana { font-family: var(--kana-font, 'Noto Sans JP', sans-serif); font-size: 55px; line-height: 1; }
 .flashcard__romaji { font-family: 'Baloo 2', sans-serif; font-size: 30px; }
-.flashcard__word { color: #1d3a4a; font-family: 'Zen Maru Gothic', sans-serif; font-size: 19px; font-weight: 700; }
+.flashcard__word { color: #1d3a4a; font-family: var(--kana-font, 'Noto Sans JP', sans-serif); font-size: 19px; font-weight: 700; }
+
+.font-settings { display: grid; gap: 16px; }
+.font-choice-list { display: grid; gap: 8px; }
+.font-choice { display: grid; grid-template-columns: auto 70px 1fr; align-items: center; gap: 10px; min-height: 58px; padding: 8px 10px; border: 1.5px solid #e0edf5; border-radius: 14px; cursor: pointer; }
+.font-choice--selected { border-color: #73b8e4; background: #f5fbff; }
+.font-choice input { accent-color: #4f9dcc; }
+.font-choice strong, .font-choice small { display: block; }
+.font-choice small { margin-top: 2px; color: #7c93a3; font-size: 11px; font-weight: 650; }
+.font-choice__preview { color: #2f5c82; font-size: 20px; text-align: center; }
+.font-choice__preview--noto-sans { font-family: 'Noto Sans JP', sans-serif; }
+.font-choice__preview--meiryo { font-family: Meiryo, sans-serif; }
+.font-choice__preview--hiragino { font-family: 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', sans-serif; }
+.font-choice__preview--noto-serif { font-family: 'Noto Serif JP', serif; }
 .flashcard-actions { width: min(100%, 360px); display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 .flashcard-action { min-height: 48px; border: 0; border-radius: 999px; font-family: 'Baloo 2', sans-serif; font-size: 13px; font-weight: 800; }
 .flashcard-action--soft { color: #b5544a; background: #fbe3de; }
