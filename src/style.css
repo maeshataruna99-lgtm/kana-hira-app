@@ -61,6 +61,7 @@ h2 { margin: 0; font-size: 15px; color: #2f5c82; }
 .bottom-nav__item.router-link-active { color: #2f5c82; }
 .bottom-nav__item.router-link-active .bottom-nav__glyph { background: #bfe0f5; }
 .desktop-nav { display: none; }
+.desktop-companion-panel { display: none; }
 
 .segment-control { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; padding: 4px; border-radius: 15px; background: #f3f9fd; }
 .segment-control button { min-height: 39px; border: 0; border-radius: 11px; background: transparent; color: #7c93a3; font-size: 13px; font-weight: 800; }
@@ -152,8 +153,8 @@ h2 { margin: 0; font-size: 15px; color: #2f5c82; }
 .flashcard-action--primary { color: #2f5c82; background: #bfe0f5; }
 .flashcard-note { max-width: 310px; text-align: center; }
 
-@media (min-width: 768px) {
-  .app-shell { min-height: 100vh; display: grid; grid-template-columns: 220px minmax(0, 1fr); }
+@media (min-width: 1024px) {
+  .app-shell { min-height: 100vh; display: grid; grid-template-columns: 220px minmax(0, 1fr) 270px; }
   .desktop-nav { position: sticky; top: 0; display: flex; flex-direction: column; min-height: 100vh; gap: 34px; padding: 30px 18px; background: linear-gradient(180deg, #2f5c82, #234a68); color: #fff; }
   .brand { padding: 0 10px; font-family: 'Baloo 2', sans-serif; font-size: 18px; font-weight: 800; }
   .desktop-nav nav { display: grid; gap: 6px; }
@@ -166,8 +167,11 @@ h2 { margin: 0; font-size: 15px; color: #2f5c82; }
   .page { width: min(100%, 760px); padding: 42px 38px; }
   .page--home { min-height: calc(100vh - 78px); }
   .continue-card { min-height: 195px; }
-  .companion { margin-top: 8px; justify-content: center; }
-  .companion__portrait { width: 112px; height: 170px; }
+  .page .companion { display: none; }
+  .desktop-companion-panel { display: flex; min-height: 100vh; padding: 30px 18px; border-left: 1px solid #e2eef6; background: #f3f9fd; }
+  .desktop-companion-panel .companion { width: 100%; min-height: 0; margin: auto 0; flex-direction: column; align-items: center; justify-content: center; gap: 12px; overflow: visible; }
+  .desktop-companion-panel .companion__bubble { order: 0; max-width: 100%; margin: 0; border-radius: 17px 17px 17px 5px; text-align: center; }
+  .desktop-companion-panel .companion__portrait { order: 1; width: 190px; height: 360px; object-fit: contain; object-position: bottom; }
   .flashcard-topbar { padding-right: 40px; padding-left: 40px; }
   .flashcard-content { min-height: calc(100vh - 72px); }
 }

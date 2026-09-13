@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { useRoute } from 'vue-router'
+import CompanionBubble from '../companion/CompanionBubble.vue'
 import { useSettings } from '../../composables/useSettings'
 
 const route = useRoute()
@@ -39,6 +40,10 @@ const currentTitle = computed(() => {
       </header>
       <slot />
     </main>
+
+    <aside class="desktop-companion-panel" aria-label="Learning companion panel">
+      <CompanionBubble />
+    </aside>
 
     <nav class="bottom-nav" aria-label="Primary navigation">
       <RouterLink v-for="item in items" :key="item.to" :to="item.to" class="bottom-nav__item">
