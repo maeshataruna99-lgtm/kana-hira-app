@@ -55,7 +55,8 @@ function advance() {
       </section>
       <section class="setup-block">
         <h2>Jumlah Soal</h2>
-        <div class="choice-row"><button v-for="count in [10, 20, 50]" :key="count" :class="{ active: config.questionCount === count }" @click="config.questionCount = count">{{ count }}</button></div>
+        <div class="choice-row"><button v-for="count in [10, 20, 50, 100]" :key="count" :class="{ active: config.questionCount === count }" @click="config.questionCount = count">{{ count }}</button></div>
+        <p class="helper-text">Sesi 100 soal akan merotasi semua kana pilihan terlebih dahulu, lalu beradaptasi pada kana yang masih perlu diulang.</p>
       </section>
       <section class="setup-block">
         <h2>Mode</h2>

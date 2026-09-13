@@ -25,10 +25,8 @@ function weightedKana(items: Kana[], getProgress: (kanaId: string) => KanaProgre
   return weightedItems[weightedItems.length - 1].kana
 }
 
-function createQuestion(config: QuizConfig, questionNumber: number, getProgress: (kanaId: string) => KanaProgress): QuizQuestion {
+function createQuestion(config: QuizConfig, target: Kana, questionNumber: number): QuizQuestion {
   const source = config.script === 'hiragana' ? hiragana : config.script === 'katakana' ? katakana : allKana
-  const eligible = source.filter((kana) => config.groups.includes(kana.group))
-  const target = weightedKana(eligible.length ? eligible : source, getProgress)
   const direction: Exclude<QuizDirection, 'mixed'> =
     config.direction === 'mixed' ? (Math.random() > 0.5 ? 'kana-to-romaji' : 'romaji-to-kana') : config.direction
   const optionPool: Kana[] = config.script === 'mixed' ? allKana : source
@@ -47,6 +45,29 @@ function createQuestion(config: QuizConfig, questionNumber: number, getProgress:
   }
 }
 
+function buildDynamicTargets(config: QuizConfig, getProgress: (kanaId: string) => KanaProgress): Kana[] {
+  const source = config.script === 'hiragana' ? hiragana : config.script === 'katakana' ? katakana : allKana
+  const eligible = source.filter((kana) => config.groups.includes(kana.group))
+  const pool = eligible.length ? eligible : source
+  const targets: Kana[] = []
+
+  // Every kana appears once before adaptive repetition starts. Longer sessions then
+  // prioritize kana that need work, but never show the same kana twice in a row.
+  while (targets.length < config.questionCount) {
+    if (targets.length < pool.length) {
+      const unseen = shuffle(pool.filter((kana) => !targets.some((target) => target.id === kana.id)))
+      targets.push(...unseen.slice(0, config.questionCount - targets.length))
+      continue
+    }
+
+    const previousId = targets.at(-1)?.id
+    const candidates = pool.filter((kana) => kana.id !== previousId)
+    targets.push(weightedKana(candidates.length ? candidates : pool, getProgress))
+  }
+
+  return targets
+}
+
 export function useQuiz() {
   const { getProgress } = useProgress()
   const questions = ref<QuizQuestion[]>([])
@@ -61,7 +82,7 @@ export function useQuiz() {
   const score = computed(() => questions.value.length ? Math.round((correctAnswers.value / questions.value.length) * 100) : 0)
 
   function start(config: QuizConfig) {
-    questions.value = Array.from({ length: config.questionCount }, (_, index) => createQuestion(config, index + 1, getProgress))
+    questions.value = buildDynamicTargets(config, getProgress).map((target, index) => createQuestion(config, target, index + 1))
     currentIndex.value = 0
     selectedAnswer.value = null
     correctAnswers.value = 0
