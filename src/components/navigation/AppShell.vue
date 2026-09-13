@@ -10,6 +10,7 @@ const { settings } = useSettings()
 const items = [
   { label: 'Home', glyph: '⌂', to: '/' },
   { label: 'Learn', glyph: 'あ', to: '/learn' },
+  { label: 'Rangkai', glyph: '✎', to: '/word-builder' },
   { label: 'Quiz', glyph: '🎴', to: '/quiz' },
   { label: 'Stats', glyph: '◔', to: '/progress' },
 ]

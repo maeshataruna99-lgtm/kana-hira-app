@@ -19,6 +19,7 @@ const { getStatus } = useProgress()
         <button :class="{ active: script === 'hiragana' }" @click="script = 'hiragana'">Hiragana</button>
         <button :class="{ active: script === 'katakana' }" @click="script = 'katakana'">Katakana</button>
       </div>
+      <RouterLink class="word-builder-link" to="/word-builder"><span>✎</span><span><strong>Rangkai Kata Bebas</strong><small>Susun Hiragana atau Katakana sendiri</small></span><span>→</span></RouterLink>
       <section v-for="group in kanaGroups" :key="group" class="kana-group">
         <h2>{{ group }}</h2>
         <div class="kana-grid">

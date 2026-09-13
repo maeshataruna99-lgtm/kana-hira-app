@@ -71,6 +71,11 @@ h2 { margin: 0; font-size: 15px; color: #2f5c82; }
 .kana-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; }
 .kana-tile { aspect-ratio: 1; position: relative; display: grid; place-items: center; border: 1px solid #e8f1f7; border-radius: 15px; background: #fff; box-shadow: 0 6px 16px -10px rgba(47,92,130,.34); color: #1d3a4a; font-family: var(--kana-font, 'Noto Sans JP', sans-serif); font-size: 20px; }
 .kana-tile:active { background: #f3f9fd; transform: scale(.97); }
+.word-builder-key { cursor: pointer; }
+.word-builder-link { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 11px; padding: 13px 15px; border: 1px solid #d6ebf7; border-radius: 16px; background: #f5fbff; color: #2f5c82; }
+.word-builder-link > span:first-child { display: grid; width: 31px; height: 31px; place-items: center; border-radius: 10px; background: #bfe0f5; }
+.word-builder-link strong, .word-builder-link small { display: block; }
+.word-builder-link small { margin-top: 2px; color: #7c93a3; font-size: 11px; font-weight: 650; }
 .kana-tile__dot { position: absolute; top: 6px; right: 6px; width: 6px; height: 6px; border-radius: 50%; background: #c9d7e0; }
 .kana-tile--learning { background: linear-gradient(160deg, #fff, #eaf6f2); }
 .kana-tile--familiar { background: linear-gradient(160deg, #fff, #eaf4fc); }
@@ -170,6 +175,14 @@ h2 { margin: 0; font-size: 15px; color: #2f5c82; }
 .flashcard-action--soft { color: #b5544a; background: #fbe3de; }
 .flashcard-action--primary { color: #2f5c82; background: #bfe0f5; }
 .flashcard-note { max-width: 310px; text-align: center; }
+.word-builder-page { gap: 18px; }
+.word-builder-output { min-height: 142px; display: grid; align-content: center; justify-items: center; gap: 7px; padding: 18px; border: 1px solid #dcecf6; border-radius: 24px; background: linear-gradient(160deg, #fff, #f3f9fd); box-shadow: 0 10px 25px -16px rgba(47,92,130,.35); }
+.word-builder-output__kana { overflow-wrap: anywhere; color: #2f5c82; font-family: var(--kana-font, 'Noto Sans JP', sans-serif); font-size: clamp(34px, 12vw, 62px); line-height: 1.2; text-align: center; }
+.word-builder-output__placeholder { color: #9aacb8; font-size: 14px; font-weight: 750; }
+.word-builder-output__romaji { color: #5b9bd5; font-family: 'Baloo 2', sans-serif; font-size: 19px; font-weight: 800; }
+.word-builder-output__meaning { color: #4f8d79; font-size: 13px; font-weight: 800; }
+.word-builder-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.word-builder-actions button:disabled { cursor: not-allowed; opacity: .45; }
 
 @media (min-width: 1024px) {
   .app-shell { min-height: 100vh; display: grid; grid-template-columns: 220px minmax(0, 1fr) 270px; }

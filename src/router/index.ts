@@ -6,6 +6,7 @@ import FlashcardView from '../views/FlashcardView.vue'
 import ProgressView from '../views/ProgressView.vue'
 import QuizView from '../views/QuizView.vue'
 import SettingsView from '../views/SettingsView.vue'
+import WordBuilderView from '../views/WordBuilderView.vue'
 
 const router = createRouter({
   history: createWebHistory(),
@@ -16,6 +17,7 @@ const router = createRouter({
     { path: '/quiz', name: 'quiz', component: QuizView },
     { path: '/progress', name: 'progress', component: ProgressView },
     { path: '/settings', name: 'settings', component: SettingsView },
+    { path: '/word-builder', name: 'word-builder', component: WordBuilderView },
   ],
 })
 
