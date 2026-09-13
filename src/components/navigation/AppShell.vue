@@ -1,11 +1,12 @@
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 import { useRoute } from 'vue-router'
 import CompanionBubble from '../companion/CompanionBubble.vue'
 import { useSettings } from '../../composables/useSettings'
 
 const route = useRoute()
 const { settings } = useSettings()
+const mobileMenuOpen = ref(false)
 
 const items = [
   { label: 'Home', glyph: '⌂', to: '/' },
@@ -26,6 +27,10 @@ const kanaFontFamily = computed(() => ({
   hiragino: "'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', sans-serif",
   'noto-serif': "'Noto Serif JP', 'Yu Mincho', serif",
 }[settings.value.kanaFont]))
+
+function closeMobileMenu() {
+  mobileMenuOpen.value = false
+}
 </script>
 
 <template>
@@ -42,6 +47,7 @@ const kanaFontFamily = computed(() => ({
 
     <main class="app-main">
       <header class="topbar">
+        <button class="mobile-menu-button" type="button" aria-label="Buka menu navigasi" aria-controls="mobile-navigation" :aria-expanded="mobileMenuOpen" @click="mobileMenuOpen = true">☰</button>
         <RouterLink class="wordmark" to="/">Kana Companion</RouterLink>
         <span class="mobile-page-title">{{ currentTitle }}</span>
         <RouterLink class="icon-button" to="/settings" aria-label="Pengaturan">⚙</RouterLink>
@@ -53,11 +59,15 @@ const kanaFontFamily = computed(() => ({
       <CompanionBubble />
     </aside>
 
-    <nav class="bottom-nav" aria-label="Primary navigation">
-      <RouterLink v-for="item in items" :key="item.to" :to="item.to" class="bottom-nav__item">
-        <span class="bottom-nav__glyph">{{ item.glyph }}</span>
-        <span>{{ item.label }}</span>
-      </RouterLink>
-    </nav>
+    <div v-if="mobileMenuOpen" class="mobile-nav-layer">
+      <button class="mobile-nav-backdrop" type="button" aria-label="Tutup menu" @click="closeMobileMenu" />
+      <aside id="mobile-navigation" class="mobile-nav-drawer" aria-label="Navigasi utama">
+        <div class="mobile-nav-drawer__header"><strong>🌸 Kana Companion</strong><button class="icon-button" type="button" aria-label="Tutup menu" @click="closeMobileMenu">×</button></div>
+        <nav>
+          <RouterLink v-for="item in items" :key="item.to" :to="item.to" class="mobile-nav-item" @click="closeMobileMenu"><span>{{ item.glyph }}</span>{{ item.label }}</RouterLink>
+          <RouterLink to="/settings" class="mobile-nav-item" @click="closeMobileMenu"><span>⚙</span>Settings</RouterLink>
+        </nav>
+      </aside>
+    </div>
   </div>
 </template>
