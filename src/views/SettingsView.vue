@@ -2,6 +2,7 @@
 import AppShell from '../components/navigation/AppShell.vue'
 import { useProgress } from '../composables/useProgress'
 import { kanaFontOptions, useSettings } from '../composables/useSettings'
+import { kanaAudioAttribution } from '../data/kanaAudio'
 
 const { resetProgress } = useProgress()
 const { settings } = useSettings()
@@ -21,6 +22,10 @@ function requestReset() {
         <label class="setting-row" :class="{ 'setting-row--disabled': !settings.pronunciation }"><span><strong>Putar Otomatis</strong><small>Baca kana saat flashcard berganti</small></span><input v-model="settings.autoPronunciation" :disabled="!settings.pronunciation" type="checkbox" aria-label="Putar Otomatis" /></label>
         <label class="setting-row"><span><strong>Companion</strong><small>Komentar dari pendamping belajar</small></span><input v-model="settings.companion" type="checkbox" aria-label="Companion" /></label>
         <label class="setting-row"><span><strong>Animasi</strong><small>Transisi kartu dan efek</small></span><input v-model="settings.animations" type="checkbox" aria-label="Animasi" /></label>
+      </section>
+      <section class="panel audio-credit">
+        <div><p class="eyebrow">Sumber Audio</p><h2>Pelafalan Kana</h2><p class="helper-text">Klip audio dimuat saat diperlukan dan menggunakan aset domain publik. Jika klip tidak dapat diputar, aplikasi mencoba suara bawaan browser.</p></div>
+        <a class="text-button" :href="kanaAudioAttribution.url" target="_blank" rel="noreferrer">{{ kanaAudioAttribution.label }} ↗</a>
       </section>
       <section class="panel font-settings">
         <div><p class="eyebrow">Kejelasan Kana</p><h2>Font belajar</h2><p class="helper-text">Pilih tampilan kana yang paling mudah Anda baca. Berlaku untuk kartu, quiz, dan daftar kana.</p></div>
