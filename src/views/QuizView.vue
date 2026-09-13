@@ -7,6 +7,8 @@ import { kanaGroups } from '../data/kana'
 import { useQuiz } from '../composables/useQuiz'
 import { useProgress } from '../composables/useProgress'
 import { useCompanion } from '../composables/useCompanion'
+import { usePronunciation } from '../composables/usePronunciation'
+import { useSettings } from '../composables/useSettings'
 import type { KanaGroup } from '../types/kana'
 import type { QuizConfig } from '../types/quiz'
 
@@ -14,6 +16,8 @@ const config = ref<QuizConfig>({ script: 'mixed', questionCount: 10, direction: 
 const { answerIsCorrect, completed, correctAnswers, currentIndex, currentQuestion, hasAnswered, next, questions, reset, score, selectAnswer, selectedAnswer, start } = useQuiz()
 const { getProgress, recordAnswer } = useProgress()
 const { companion, respond } = useCompanion()
+const { settings } = useSettings()
+const { speak, supported } = usePronunciation()
 
 function toggleGroup(group: KanaGroup) {
   config.value.groups = config.value.groups.includes(group)
@@ -41,6 +45,10 @@ function advance() {
   const perfect = correctAnswers.value === questions.value.length
   next()
   if (isLastQuestion) respond(perfect ? 'perfect' : 'quiz_complete')
+}
+
+function speakCurrentKana() {
+  if (currentQuestion.value?.direction === 'kana-to-romaji') speak(currentQuestion.value.prompt)
 }
 </script>
 
@@ -73,7 +81,7 @@ function advance() {
     <section v-else-if="!completed && currentQuestion" class="page page--quiz">
       <div class="section-heading"><div><p class="eyebrow">Quiz {{ config.script === 'mixed' ? 'campuran' : config.script }}</p><h1>Kenali kana</h1></div><span class="question-count">{{ currentIndex + 1 }} / {{ questions.length }}</span></div>
       <ProgressBar :value="((currentIndex + 1) / questions.length) * 100" />
-      <div class="quiz-card"><p class="quiz-card__kana">{{ currentQuestion.prompt }}</p><p>{{ currentQuestion.promptLabel }}</p></div>
+      <div class="quiz-card"><p class="quiz-card__kana">{{ currentQuestion.prompt }}</p><p>{{ currentQuestion.promptLabel }}</p><button v-if="settings.pronunciation && currentQuestion.direction === 'kana-to-romaji'" class="audio-button audio-button--compact" type="button" :disabled="!supported" @click="speakCurrentKana">🔊 Dengarkan</button></div>
       <div class="options-grid">
         <button v-for="option in currentQuestion.options" :key="option" class="option-button" :class="{ selected: selectedAnswer === option, correct: hasAnswered && option === currentQuestion.answer, wrong: hasAnswered && selectedAnswer === option && option !== currentQuestion.answer }" :disabled="hasAnswered" @click="answer(option)">{{ option }}</button>
       </div>

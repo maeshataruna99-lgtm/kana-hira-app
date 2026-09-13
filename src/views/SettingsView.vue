@@ -17,7 +17,8 @@ function requestReset() {
       <div class="section-heading"><div><p class="eyebrow">Preferensi</p><h1>Pengaturan</h1></div></div>
       <section class="settings-list">
         <label class="setting-row"><span><strong>Efek Suara</strong><small>Bunyi saat menjawab</small></span><input v-model="settings.soundEffects" type="checkbox" aria-label="Efek Suara" /></label>
-        <label class="setting-row"><span><strong>Pelafalan</strong><small>Audio cara baca kana</small></span><input v-model="settings.pronunciation" type="checkbox" aria-label="Pelafalan" /></label>
+        <label class="setting-row"><span><strong>Pelafalan</strong><small>Aktifkan tombol dengarkan untuk kana</small></span><input v-model="settings.pronunciation" type="checkbox" aria-label="Pelafalan" /></label>
+        <label class="setting-row" :class="{ 'setting-row--disabled': !settings.pronunciation }"><span><strong>Putar Otomatis</strong><small>Baca kana saat flashcard berganti</small></span><input v-model="settings.autoPronunciation" :disabled="!settings.pronunciation" type="checkbox" aria-label="Putar Otomatis" /></label>
         <label class="setting-row"><span><strong>Companion</strong><small>Komentar dari pendamping belajar</small></span><input v-model="settings.companion" type="checkbox" aria-label="Companion" /></label>
         <label class="setting-row"><span><strong>Animasi</strong><small>Transisi kartu dan efek</small></span><input v-model="settings.animations" type="checkbox" aria-label="Animasi" /></label>
       </section>

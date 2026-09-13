@@ -4,6 +4,7 @@ import type { AppSettings, KanaFont } from '../types/settings'
 const defaultSettings: AppSettings = {
   soundEffects: true,
   pronunciation: false,
+  autoPronunciation: false,
   companion: true,
   animations: true,
   kanaFont: 'noto-sans',

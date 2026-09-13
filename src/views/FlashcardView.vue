@@ -1,10 +1,12 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, onUnmounted, ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import { hiragana, katakana } from '../data/kana'
 import { vocabulary } from '../data/vocabulary'
 import type { KanaScript } from '../types/kana'
 import { useProgress } from '../composables/useProgress'
+import { usePronunciation } from '../composables/usePronunciation'
+import { useSettings } from '../composables/useSettings'
 
 const route = useRoute()
 const script: KanaScript = route.query.script === 'katakana' ? 'katakana' : 'hiragana'
@@ -16,6 +18,8 @@ const flipped = ref(false)
 const pointerStart = ref<number | null>(null)
 const swiped = ref(false)
 const { recordAnswer } = useProgress()
+const { settings } = useSettings()
+const { speak, stop, supported } = usePronunciation()
 
 const current = computed(() => cards[index.value])
 const example = computed(() => vocabulary.find((item) => item.kana.includes(current.value.character)))
@@ -24,6 +28,16 @@ function move(direction: -1 | 1) {
   index.value = (index.value + direction + cards.length) % cards.length
   flipped.value = false
 }
+
+function speakCurrent() {
+  speak(current.value.character)
+}
+
+watch(index, () => {
+  if (settings.value.autoPronunciation) speakCurrent()
+})
+
+onUnmounted(stop)
 
 function review(remembered: boolean) {
   recordAnswer(current.value.id, remembered)
@@ -78,6 +92,9 @@ function toggleCard() {
           <span v-else class="flashcard__detail">Baris {{ current.group }}</span>
         </template>
       </button>
+
+      <button v-if="settings.pronunciation" class="audio-button" type="button" :disabled="!supported" @click="speakCurrent">🔊 Dengarkan {{ current.character }}</button>
+      <p v-else class="helper-text">Aktifkan Pelafalan di Pengaturan untuk mendengarkan cara baca kana.</p>
 
       <div class="flashcard-actions">
         <button class="flashcard-action flashcard-action--soft" type="button" @click="review(false)">← Belum Hafal</button>
